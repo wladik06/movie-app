@@ -5,7 +5,7 @@ const Navbar = () => {
 	return (
 		<div className="flex w-full p-3 absolute">
 			<Link to="/">
-				<h1 className="text-green-600 text-4xl font-bold cursor-pointer">MOVIEAPP</h1>
+				<h1 className="text-green-600 text-4xl font-bold cursor-pointer">MOVIEaplication</h1>
 			</Link>
 			<div className="items-center justify-end z-[100] flex w-full absolute">
 				<div className="pr-3">
