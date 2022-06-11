@@ -36,7 +36,7 @@ const Login = () => {
 								<div className="flex justify-between items-center text-sm text-gray-600"></div>
 								<p className="py-8">
 									<span className="text-gray-600 p-3">New to LeafWatch?</span>
-									<Link to="/signup">Register</Link>
+									<Link to="/register">Register</Link>
 								</p>
 							</form>
 						</div>
