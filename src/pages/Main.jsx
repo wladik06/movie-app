@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import requests from "../Requests";
 import axios from "axios";
 
 const Main = () => {
 	const [movies, setMovies] = useState([]);
 
+	// select and display a single random movie every time the page is refreshed
 	const movie = movies[Math.floor(Math.random() * movies.length)];
 
+	// using axios to make an api call whenever the page loads
+	// requests.requestPopular = url defined in Requests.js
+	// response.data.results = list of movies (see results in console.log(movies))
 	useEffect(() => {
 		axios.get(requests.requestPopular).then((response) => {
 			setMovies(response.data.results);
 		});
 	}, []);
 
+	// cut off the text after certain amount of characters to avoid long overview
 	const truncateString = (str, num) => {
 		if (str?.length > num) {
 			return str.slice(0, num) + "...";
@@ -22,6 +26,7 @@ const Main = () => {
 		}
 	};
 
+	// return title, overview, image, buttons - styling
 	return (
 		<div className="w-full h-[600px] text-white">
 			<div className="w-full h-full">
@@ -45,7 +50,7 @@ const Main = () => {
 						Released: {movie?.release_date}
 					</p>
 					<p className="w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">
-						{truncateString(movie?.overview, 150)}
+						{truncateString(movie?.overview, 250)}
 					</p>
 				</div>
 			</div>
