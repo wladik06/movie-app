@@ -16,16 +16,18 @@ const Row = ({ title, fetchURL, rowID }) => {
 		});
 	}, [fetchURL]);
 
+    // slider arrow functions
 	const slideLeft = () => {
 		var slider = document.getElementById("slider" + rowID);
-		slider.scrollLeft = slider.scrollLeft - 500;
-	};
-	const slideRight = () => {
-		var slider = document.getElementById("slider" + rowID);
-		slider.scrollLeft = slider.scrollLeft + 500;
+		slider.scrollLeft = slider.scrollLeft - 1000;
 	};
 
-    // 
+	const slideRight = () => {
+		var slider = document.getElementById("slider" + rowID);
+		slider.scrollLeft = slider.scrollLeft + 1000;
+	};
+
+    // slider + added icons for mouse clicking (left, right)
 	return (
 		<>
 			<h2 className="text-white font-bold md:text-xl p-4">{title}</h2>

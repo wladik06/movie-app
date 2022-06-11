@@ -4,6 +4,8 @@ import Row from '../components/Row';
 import requests from '../Requests';
 
 const Home = () => {
+
+	// added unique row IDs to determine which row we refer to when using sliders
 	return (
 		<>
 			<Main />
