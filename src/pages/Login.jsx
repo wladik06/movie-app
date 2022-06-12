@@ -1,7 +1,26 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from '../context/AuthContext';
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
+	const { logIn } = UserAuth();
+	const navigate = useNavigate();
+
+	//submit login form + redirect
+	const submit = async (e) => {
+		e.preventDefault();
+		setError("");
+		try {
+			await logIn(email, password);
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+			setError(error.message);
+		}
+	};
 
 	// styling login form
 	return (
@@ -17,14 +36,17 @@ const Login = () => {
 					<div className="max-w-[450px] h-[600px] mx-auto bg-black/75 text-white">
 						<div className="max-w-[320px] mx-auto py-16">
 							<h1 className="text-3xl font-bold">Log In</h1>
-							<form className="w-full flex flex-col py-4">
+							{error ? <p className="p-3 bg-red-400 my-2">{error}</p> : null}
+							<form className="w-full flex flex-col py-4" onSubmit={submit}>
 								<input
+									onChange={(e) => setEmail(e.target.value)}
 									className="p-3 my-2 bg-gray-700 rouded"
 									type="email"
 									placeholder="Email"
 									autoComplete="email"
 								/>
 								<input
+									onChange={(e) => setPassword(e.target.value)}
 									className="p-3 my-2 bg-gray-700 rouded"
 									type="password"
 									placeholder="Password"
