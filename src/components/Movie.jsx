@@ -9,14 +9,15 @@ const Movie = ({ item }) => {
 	const [saved, setSaved] = useState(false);
 	const { user } = UserAuth();
 
-	const movieID = doc(db, "users", `${user?.email}`);
+	// movie refference (specific movie based on user email saved in db under users collection)
+	const movie = doc(db, "users", `${user?.email}`);
 
 	// if user is logged in update firestore cloud doc (database) with saved movies once that user saves anything
 	const saveMovie = async () => {
 		if (user?.email) {
 			setLike(!like);
 			setSaved(true);
-			await updateDoc(movieID, {
+			await updateDoc(movie, {
 				savedMovies: arrayUnion({
 					id: item.id,
 					title: item.title,
@@ -42,9 +43,9 @@ const Movie = ({ item }) => {
 				</p>
 				<p onClick={saveMovie}>
 					{like ? (
-						<FaHeart className="absolute top-4 left-4 text-gray-300" />
+						<FaHeart className="absolute top-4 right-4 text-gray-300" />
 					) : (
-						<FaRegHeart className="absolute top-4 left-4 text-gray-300" />
+						<FaRegHeart className="absolute top-4 right-4 text-gray-300" />
 					)}
 				</p>
 			</div>

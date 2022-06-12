@@ -1,12 +1,16 @@
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
+import { AiOutlineClose } from "react-icons/ai";
 
 const SavedMovies = () => {
 	const [movies, setMovies] = useState([]);
 	const { user } = UserAuth();
+
+	// movie refference (specific movie based on user email saved in db under users collection)
+	const movie = doc(db, "users", `${user?.email}`);
 
 	// slider arrow functions
 	const slideLeft = () => {
@@ -25,6 +29,18 @@ const SavedMovies = () => {
 			setMovies(doc.data()?.savedMovies);
 		});
 	}, [user?.email]);
+
+    // delete movie and push the update array back to firebase
+	const deleteMovie = async (passedID) => {
+		try {
+			const result = movies.filter((item) => item.id !== passedID);
+			await updateDoc(movie, {
+				savedMovies: result,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	// saved movies - slider styling
 	return (
@@ -54,6 +70,12 @@ const SavedMovies = () => {
 								<p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center">
 									{item?.title}
 								</p>
+								<p
+									onClick={() => deleteMovie(item.id)}
+									className="absolute text-gray-300 top-4 right-4"
+								>
+									<AiOutlineClose />
+								</p>
 							</div>
 						</div>
 					))}
@@ -68,4 +90,4 @@ const SavedMovies = () => {
 	);
 };
 
-export default SavedMovies
+export default SavedMovies;
