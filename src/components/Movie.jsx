@@ -11,7 +11,7 @@ const Movie = ({ item }) => {
 
 	const movieID = doc(db, "users", `${user?.email}`);
 
-	// if user is logged in update firestore cloud doc with saved movies once that user saves anything
+	// if user is logged in update firestore cloud doc (database) with saved movies once that user saves anything
 	const saveMovie = async () => {
 		if (user?.email) {
 			setLike(!like);
