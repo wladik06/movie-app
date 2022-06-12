@@ -11,14 +11,15 @@ import { doc, setDoc } from "firebase/firestore";
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
-    const [user, setUser] = useState({});
+	const [user, setUser] = useState({});
 
-    //register, login, logout
+	// register, login, logout
+	// create user collection in cloud firestore and after each registration add user email and saved movies into collection
 	function register(email, password) {
 		createUserWithEmailAndPassword(auth, email, password);
-        setDoc(doc(db, "users", email), {
-					savedShows: [],
-				});
+		setDoc(doc(db, "users", email), {
+			savedMovies: [],
+		});
 	}
 
 	function logIn(email, password) {
@@ -29,7 +30,7 @@ export function AuthContextProvider({ children }) {
 		return signOut(auth);
 	}
 
-    // check whether the user is logged in 
+	// check whether the user is logged in
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
