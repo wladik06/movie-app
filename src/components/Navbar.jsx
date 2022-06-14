@@ -21,7 +21,7 @@ const Navbar = () => {
 			<div className="flex items-center justify-between w-full p-3 absolute z-[100]">
 				<Link to="/">
 					<h1 className="text-green-600 text-4xl font-bold cursor-pointer">
-						MOVIEAPP
+						LEAFWATCH
 					</h1>
 				</Link>
 				{user?.email ? (
