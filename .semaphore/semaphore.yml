@@ -28,6 +28,5 @@ blocks:
       jobs:
         - name: Firebase
           commands:
-            - firebase init hosting
             - npm install -g firebase-tools
             - firebase deploy --token "$FIREBASE_TOKEN"
