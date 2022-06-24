@@ -16,5 +16,8 @@ blocks:
             - npm install
             - cache store
             - npm run build --if-present
-            - npm test
+            - CI=true npm test
             - npm stop
+      env_vars:
+        - name: CI
+          value: 'true'
