@@ -28,7 +28,6 @@ blocks:
       jobs:
         - name: Firebase
           commands:
-            - 'firebase login:ci'
             - firebase init
             - npm install -g firebase-tools
             - firebase deploy --token "$FIREBASE_TOKEN"
