@@ -20,3 +20,13 @@ blocks:
       env_vars:
         - name: CI
           value: 'true'
+  - name: Deploy
+    task:
+      env_vars:
+        - name: FIREBASE_TOKEN
+          value: 1//099BZ9poEAqzECgYIARAAGAkSNwF-L9IrqjXhSygAomW5xa-GwiALs_X4EClv7HeMPZQOEukieCqAU_Y6XVv1sX-eb-JPX1_WVt4
+      jobs:
+        - name: Firebase
+          commands:
+            - npm install -g firebase-tools
+            - firebase deploy --token "$FIREBASE_TOKEN"
