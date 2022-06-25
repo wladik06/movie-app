@@ -29,6 +29,5 @@ blocks:
         - name: Firebase
           commands:
             - npm install -g firebase-tools
-            - firebase init hosting use movie-app --non-interactive
-            - firebase use movie-app
+            - firebase use --add
             - firebase deploy --token "$FIREBASE_TOKEN" --non-interactive
