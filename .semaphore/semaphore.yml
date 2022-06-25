@@ -31,5 +31,9 @@ blocks:
         - name: Firebase
           commands:
             - checkout
+            - sem-version node 14
+            - cache restore
+            - npm install
+            - cache store
             - npm install -g firebase-tools
             - firebase deploy --token "$FIREBASE_TOKEN" --non-interactive
