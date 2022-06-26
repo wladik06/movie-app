@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent} from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { FirebaseContext } from "../firebase";
+import { Login } from "../pages/Login";
 
 jest.mock("react-router-dom", () => ({
 	...jest.requireActual("react-router-dom"),
@@ -15,8 +16,8 @@ const firebase = {
 	})),
 };
 
-describe("Login", () => {
-	it("renders the sign in page with a form submission", async () => {
+describe("<Login />", () => {
+	it("renders the login page with a form submission", async () => {
 		render(
 			<Router>
 				<FirebaseContext.Provider value={{ firebase }}>
