@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
-	const { logIn } = UserAuth();
+	const { logIn } = UserAuth() || {};
 	const navigate = useNavigate();
 
 	//submit login form + redirect
@@ -40,6 +40,7 @@ const Login = () => {
 							<form className="w-full flex flex-col py-4" onSubmit={submit}>
 								<input
 									onChange={(e) => setEmail(e.target.value)}
+									{...!validateInput((e) => setEmail(e.target.value)) ? console.log("Email not valid") : null}
 									className="p-3 my-2 bg-gray-700 rouded"
 									type="email"
 									placeholder="Email"
@@ -69,4 +70,5 @@ const Login = () => {
 	);
 };
 
+export const validateInput = (str = "") => str.includes("@");
 export default Login;

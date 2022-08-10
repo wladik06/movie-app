@@ -1,8 +1,34 @@
 import React from "react";
-import { render, fireEvent} from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { render, fireEvent } from "@testing-library/react";
+import Login, { validateInput } from "../pages/Login";
 import { FirebaseContext } from "../firebase";
-import { Login } from "../pages/Login";
+import { Router } from "react-router-dom";
+
+describe("login", () => {
+	test("validate function should pass on correct input", () => {
+		const text = "text@text.dk";
+		expect(validateInput(text)).toBe(true);
+	});
+
+	test("validate function should not pass on correct input", () => {
+		const text = "text";
+		expect(validateInput(text)).not.toBe(true);
+	});
+	
+
+	test("login form should be in the document", () => {
+		const utils = render(<Login />);
+		const placeholder = utils.screen.getByText("Email");
+		expect(placeholder).toBeInTheDocument();		
+	});
+
+	test("email field should have type", () => {
+		const utils = render(<Login />);
+		const emailInput = utils.screen.getByText("email");
+		expect(emailInput).getAttribute("type").toBe("email");
+	});
+
+});
 
 jest.mock("react-router-dom", () => ({
 	...jest.requireActual("react-router-dom"),
@@ -21,7 +47,7 @@ describe("<Login />", () => {
 		render(
 			<Router>
 				<FirebaseContext.Provider value={{ firebase }}>
-					Login
+					<Login />
 				</FirebaseContext.Provider>
 			</Router>
 		);
@@ -33,11 +59,9 @@ describe("<Login />", () => {
 			await fireEvent.change(("Password"), {
 				target: { value: "password123" },
 			});
-			fireEvent.click(("sign-in"));
+			fireEvent.click("login");
 
-			expect(("Email").value).toBe(
-				"test@ucn.dk"
-			);
+			expect(("Email").value).toBe("test@ucn.dk");
 			expect(("Password").value).toBe("password123");
 		});
 	});

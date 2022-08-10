@@ -30,7 +30,7 @@ const SavedMovies = () => {
 		});
 	}, [user?.email]);
 
-    // delete movie and push the update array back to firebase
+    // delete movie and push the updated array back to firebase
 	const deleteMovie = async (passedID) => {
 		try {
 			const result = movies.filter((item) => item.id !== passedID);
